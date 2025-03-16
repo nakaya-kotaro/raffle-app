@@ -2,7 +2,7 @@ new Vue({
     el: "#app",
     data: {
         totalCount: 30,
-        winCount: 10
+        winPercentage: 30
     },
     methods: {
         saveSettings() {
@@ -10,12 +10,13 @@ new Vue({
                 alert("くじの総数は1以上にしてください！");
                 return;
             }
-            if (this.winCount > this.totalCount) {
-                alert("当選本数は総数以下にしてください！");
+            if (this.winPercentage < 0 || this.winPercentage > 100) {
+                alert("当選の割合は0〜100の間で設定してください！");
                 return;
             }
+            const winCount = Math.floor((this.winPercentage / 100) * this.totalCount);
             localStorage.setItem("totalCount", this.totalCount);
-            localStorage.setItem("winCount", this.winCount);
+            localStorage.setItem("winCount", winCount);
             window.location.href = "../exec-raffle-app/index.html";
         }
     }
