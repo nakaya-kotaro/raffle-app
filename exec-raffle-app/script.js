@@ -7,10 +7,11 @@ new Vue({
         buttonText: "くじを引く"
     },
     created() {
+        const totalCount = parseInt(localStorage.getItem("totalCount")) || 30;
         const winCount = parseInt(localStorage.getItem("winCount")) || 10;
-        const loseCount = parseInt(localStorage.getItem("loseCount")) || 20;
-        const total = winCount + loseCount;
-        if (total === 0) {
+        const loseCount = totalCount - winCount;
+
+        if (totalCount === 0) {
             alert("くじの設定がされていません。設定ページに戻ります。");
             window.location.href = "../home/index.html";
             return;
